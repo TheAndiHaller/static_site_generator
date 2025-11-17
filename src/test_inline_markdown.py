@@ -85,6 +85,22 @@ class TestInlineMarkdown(unittest.TestCase):
             new_nodes,
         )
 
+    def test_extract_images(self):
+        text = "This is text with a ![rick roll](https://i.imgur.com/aKaOqIh.gif) and ![obi wan](https://i.imgur.com/fJRm4Vk.jpeg)"
+        matches = extract_markdown_images(text)
+        self.assertListEqual([("rick roll", "https://i.imgur.com/aKaOqIh.gif"), ("obi wan", "https://i.imgur.com/fJRm4Vk.jpeg")], matches)
+    
+    def test_extract_links(self):
+        text = "This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)"
+        matches = extract_markdown_links(text)
+        self.assertListEqual([("to boot dev", "https://www.boot.dev"), ("to youtube", "https://www.youtube.com/@bootdotdev")], matches)
+    
+    # should be ignored
+    def test_extract_links_2(self):
+        text = "This is text with a ![rick roll](https://i.imgur.com/aKaOqIh.gif) and ![obi wan](https://i.imgur.com/fJRm4Vk.jpeg)"
+        matches = extract_markdown_links(text)
+        self.assertListEqual([], matches)
+
 
 if __name__ == "__main__":
     unittest.main()
