@@ -1,5 +1,6 @@
 from textnode import *
 from htmlnode import *
+from tools import *
 
 def main():
     my_text_node = TextNode("Hellouuu", TextType.LINK, "https://www.boot.dev")
@@ -23,6 +24,11 @@ def main():
 )
 
     print(node.to_html())
+
+    node = TextNode("`code block` word", TextType.TEXT)
+    new_nodes = split_nodes_delimiter([node], "`", TextType.CODE)
+    print(new_nodes)
+
 
 if __name__ == "__main__":
     main()
