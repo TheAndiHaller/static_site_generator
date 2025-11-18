@@ -1,6 +1,7 @@
 from textnode import *
 from htmlnode import *
 from tools import *
+from block_type import *
 
 def main():
     markdown = """
@@ -13,13 +14,11 @@ This is a paragraph of text. It has some **bold** and _italic_ words inside of i
 - This is another list item"
 """
     result = markdown_to_blocks(markdown)
-    print(result)
+    
 
     for item in result:
-        print(f"{item}")
-
-
-
+        print(f"TYPE: {block_to_block_type(item)} = {item}")
+        
 
 
 
