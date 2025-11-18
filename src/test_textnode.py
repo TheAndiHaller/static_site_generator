@@ -61,7 +61,7 @@ class TestTextNode(unittest.TestCase):
     """
 
     def test_text_node_img(self):
-        tn = TextNode("cat pic", TextType.IMG, "cat.png")
+        tn = TextNode("cat pic", TextType.IMAGE, "cat.png")
         html = text_node_to_html_node(tn)
         self.assertEqual(html.tag, "img")
         self.assertEqual(html.value, "")
