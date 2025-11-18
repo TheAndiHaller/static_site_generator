@@ -3,12 +3,25 @@ from htmlnode import *
 from tools import *
 
 def main():
+    markdown = """
+# This is a heading
 
-    text = "This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
-    result = text_to_textnodes(text)
-    
+This is a paragraph of text. It has some **bold** and _italic_ words inside of it.
+
+- This is the first list item in a list block
+- This is a list item
+- This is another list item"
+"""
+    result = markdown_to_blocks(markdown)
+    print(result)
+
     for item in result:
-        print(f"- {item.text_type} = {item}")
+        print(f"{item}")
+
+
+
+
+
 
 
     return

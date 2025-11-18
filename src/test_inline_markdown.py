@@ -183,5 +183,66 @@ class TestInlineMarkdown(unittest.TestCase):
             nodes,
         )
 
+    def test_markdown_to_blocks(self):
+        md = """
+This is **bolded** paragraph
+
+This is another paragraph with _italic_ text and `code` here
+This is the same paragraph on a new line
+
+- This is a list
+- with items
+"""
+        blocks = markdown_to_blocks(md)
+        self.assertEqual(
+            blocks,
+            [
+                "This is **bolded** paragraph",
+                "This is another paragraph with _italic_ text and `code` here\nThis is the same paragraph on a new line",
+                "- This is a list\n- with items",
+            ],
+        )
+
+    def test_markdown_to_blocks_single_block(self):
+        md = "Just a single block with no blank lines"
+        blocks = markdown_to_blocks(md)
+        self.assertEqual(blocks, ["Just a single block with no blank lines"])
+
+    def test_markdown_to_blocks_leading_trailing_newlines(self):
+        md = """
+
+Hello world
+
+"""
+        blocks = markdown_to_blocks(md)
+        self.assertEqual(blocks, ["Hello world"])
+
+
+    def test_markdown_to_blocks_multiple_empty(self):
+        md = "Para1\n\n\n\nPara2"
+        blocks = markdown_to_blocks(md)
+        self.assertEqual(blocks, ["Para1", "Para2"])
+
+    def test_markdown_to_blocks_mixed_content(self):
+        md = """Title
+
+- item
+- item
+
+Paragraph
+
+`inline code` here
+"""
+        blocks = markdown_to_blocks(md)
+        self.assertEqual(
+            blocks,
+            [
+            "Title",
+            "- item\n- item",
+            "Paragraph",
+            "`inline code` here",
+            ],
+        )
+
 if __name__ == "__main__":
     unittest.main()
